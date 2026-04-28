@@ -178,14 +178,17 @@
     function buildModuleSkipPatterns(flags) {
         flags = flags || {};
         var p = [];
-        if (!flags.inclStickers) p.push('stickerLibrary', 'myStickerLibrary');
-        if (!flags.inclThemes) p.push('backgroundGallery', 'chatBackground', 'partnerAvatar', 'myAvatar', 'playerCover');
-        if (!flags.inclMsgs) p.push('chatMessages');
-        if (!flags.inclSet) p.push('chatSettings', 'partnerPersonas', 'showPartnerNameInChat');
-        if (!flags.inclCustom) p.push('customReplies', 'customPokes', 'customStatuses', 'customMottos', 'customIntros', 'customEmojis', 'customReplyGroups', 'customPokeGroups', 'customStatusGroups');
-        if (!flags.inclAnn) p.push('anniversaries');
-        if (!flags.inclThemes) p.push('customThemes', 'themeSchemes');
-        if (!flags.inclDg) p.push('dg_custom_data', 'dg_status_pool', 'weekly_fortune', 'daily_fortune', 'customWeather_');
+        // 用 === false 精确判断：未传（undefined）或 true 都不排除，只排除明确传 false 的
+        if (flags.inclStickers === false) p.push('stickerLibrary', 'myStickerLibrary');
+        if (flags.inclThemes === false) p.push('backgroundGallery', 'chatBackground', 'partnerAvatar', 'myAvatar', 'playerCover');
+        if (flags.inclMsgs === false) p.push('chatMessages');
+        if (flags.inclSet === false) p.push('chatSettings', 'partnerPersonas', 'showPartnerNameInChat');
+        if (flags.inclCustom === false) p.push('customReplies', 'customPokes', 'customStatuses', 'customMottos', 'customIntros', 'customEmojis', 'customReplyGroups', 'customPokeGroups', 'customStatusGroups');
+        if (flags.inclAnn === false) p.push('anniversaries');
+        if (flags.inclThemes === false) p.push('customThemes', 'themeSchemes');
+        if (flags.inclDg === false) p.push('dg_custom_data', 'dg_status_pool', 'weekly_fortune', 'daily_fortune', 'customWeather_');
+        if (flags.inclMood === false) p.push('moodCalendar', 'customMoodOptions', 'moodTrash');
+        if (flags.inclEnvelope === false) p.push('envelopeData', 'pending_envelope');
         return p;
     }
 
@@ -203,7 +206,8 @@
     async function buildBackupPayload(flags) {
         flags = flags || {
             inclMsgs: true, inclSet: true, inclCustom: true, inclAnn: true,
-            inclThemes: true, inclDg: true, inclStickers: false
+            inclThemes: true, inclDg: true, inclStickers: true,
+            inclMood: true, inclEnvelope: true
         };
         var lfData = {};
         var keys = await localforage.keys();
