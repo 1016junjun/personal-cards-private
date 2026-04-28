@@ -515,7 +515,7 @@ if (_chatSettingsEl) _chatSettingsEl.addEventListener('click', () => {
                             else settingsSize += bytes;
                         }
                         const fmt = b => b > 1048576 ? (b/1048576).toFixed(1)+'MB' : b > 1024 ? (b/1024).toFixed(0)+'KB' : b+'B';
-                        const MAX = 5 * 1024 * 1024;
+                        const MAX = 20 * 1024 * 1024;
                         const pct = Math.min(100, Math.round(total / MAX * 100));
                         const barEl = document.getElementById('dm-storage-bar');
                         const totalEl = document.getElementById('dm-storage-total');
@@ -1229,7 +1229,7 @@ if (_chatSettingsEl) _chatSettingsEl.addEventListener('click', () => {
                         showNotification('背景图片不能超过10MB', 'error');
                         return;
                     }
-                    if (file.size > 5 * 1024 * 1024) {
+                    if (file.size > MAX_IMAGE_SIZE) {
                         showNotification('文件较大，正在处理中...', 'info', 2000);
                     }
                     const reader = new FileReader();
@@ -2969,7 +2969,7 @@ playlist.style.top = (rect.top + (player.classList.contains('collapsed') ? 65 : 
                     const file = e.target.files[0];
                     if (file) {
                         if (file.size > MAX_IMAGE_SIZE) {
-                            showNotification('图片大小不能超过5MB', 'error');
+                            showNotification('图片大小不能超过20MB', 'error');
                             return;
                         }
                         showNotification('正在优化图片...', 'info', 1500);

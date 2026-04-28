@@ -385,8 +385,9 @@ async function exportAllData() {
                 inclCustom: true,
                 inclAnn: true,
                 inclThemes: true,
-                inclDg: true,
-                inclStickers: true
+                inclStickers: true,
+                inclMood: true,
+                inclEnvelope: true
             });
             const jsonString = ChatBackup.serializeBackupV4(payload);
             const dateStr = new Date().toISOString().slice(0, 10);
@@ -464,13 +465,6 @@ async function importAllData(file) {
                 label: '主题 / 外观 / 图库',
                 indexedDBNeedles: ['customThemes', 'themeSchemes', 'backgroundGallery', 'chatBackground', 'partnerAvatar', 'myAvatar', 'partnerPersonas'],
                 localStorageNeedles: []
-            },
-            {
-                id: 'dg',
-                label: '每日公告 / 运势 / 天气',
-                indexedDBNeedles: [],
-                localStorageNeedles: ['dg_custom_data', 'dg_status_pool', 'weekly_fortune', 'daily_fortune'],
-                localStoragePrefixes: ['customWeather_']
             }
         ];
 
