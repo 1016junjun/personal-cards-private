@@ -177,9 +177,15 @@ const stickerInput = document.getElementById('sticker-file-input');
 
                     let successCount = 0;
                     let failCount = 0;
+                    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp'];
 
                     for (const file of validFiles) {
                         try {
+                            if (!allowedTypes.includes(file.type)) {
+                                showNotification('不支持格式：' + (file.type || '未知') + '，请上传 JPG/PNG/GIF/WebP/BMP', 'warning');
+                                failCount++;
+                                continue;
+                            }
                             const base64 = await optimizeImage(file, 300, 0.8);
                             stickerLibrary.push(base64);
                             successCount++;
@@ -212,8 +218,14 @@ if (myStickerQuickUpload) {
         if (!validFiles.length) return;
         showNotification('正在处理 ' + validFiles.length + ' 张...', 'info');
         let ok = 0, fail = 0;
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp'];
         for (const file of validFiles) {
             try {
+                if (!allowedTypes.includes(file.type)) {
+                    showNotification('不支持格式：' + (file.type || '未知') + '，请上传 JPG/PNG/GIF/WebP/BMP', 'warning');
+                    fail++;
+                    continue;
+                }
                 const base64 = await optimizeImage(file, 300, 0.8);
                 myStickerLibrary.push(base64);
                 ok++;

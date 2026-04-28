@@ -675,8 +675,8 @@ function showPokeTab() {
                             previewImg.src = currentImageData;
                             previewDiv.style.display = 'block';
                             sendBtn.disabled = false;
-                        }).catch(() => {
-                            showNotification('图片处理失败', 'error');
+                        }).catch((err) => {
+                            showNotification(err.message || '图片处理失败', 'error');
                         });
                     }
                 });

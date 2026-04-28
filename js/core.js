@@ -1250,6 +1250,11 @@ const addMessage = (message) => {
 
         function optimizeImage(file, maxWidth = 800, quality = 0.7) {
             return new Promise((resolve, reject) => {
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp'];
+                if (!allowedTypes.includes(file.type)) {
+                    reject(new Error('不支持的图片格式，请上传 JPG、PNG、GIF、WebP 或 BMP 格式'));
+                    return;
+                }
                 if (file.size < 300 * 1024) {
                     const reader = new FileReader();
                     reader.onload = e => resolve(e.target.result);
@@ -1456,7 +1461,7 @@ if (!isBatchMode && type === 'normal') {
 
             if (imageFile) {
                 showNotification('正在优化图片...', 'info', 1500);
-                optimizeImage(imageFile).then(createMessage).catch(() => showNotification('图片处理失败', 'error'));
+                optimizeImage(imageFile).then(createMessage).catch((err) => showNotification(err.message || '图片处理失败', 'error'));
             } else {
                 createMessage();
             }
@@ -1520,7 +1525,7 @@ if (!isBatchMode && type === 'normal') {
                     try {
                         const base64 = await optimizeImage(file, 600, 0.8);
                         addToBatch(base64);
-                    } catch(err) { showNotification('图片处理失败', 'error'); }
+                    } catch(err) { showNotification(err.message || '图片处理失败', 'error'); }
                     e.target.value = '';
                 });
             }
