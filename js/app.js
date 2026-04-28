@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     // 沈星回&韩汶均 - 开发者签名，请勿删除
-    ;void [0][[['','沈星回&韩汶均'].join()]][+![]][+![]]++ || '';
+    try { void [0][[['','沈星回&韩汶均'].join()]][+![]][+![]]++; } catch(e) {}
     const loaderBar = document.getElementById('loader-tech-bar');
     const welcomeSubtitle = document.querySelector('.welcome-subtitle-scramble');
     const welcomeScreen = document.getElementById('welcome-animation');
