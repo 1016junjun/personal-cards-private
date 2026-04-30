@@ -2230,8 +2230,8 @@ function showModal(modalElement, focusElement = null) {
 
         function getStorageKey(baseKey) {
             if (!SESSION_ID) {
-                console.error('[getStorageKey] SESSION_ID 尚未初始化，拒绝生成存储键:', baseKey);
-                throw new Error('SESSION_ID 未初始化，存储操作已中止');
+                console.warn('[getStorageKey] SESSION_ID 尚未初始化，使用临时会话ID:', baseKey);
+                return `${APP_PREFIX}temp_session_${baseKey}`;
             }
             return `${APP_PREFIX}${SESSION_ID}_${baseKey}`;
         }
